@@ -1,5 +1,6 @@
 import Cocoa
 import AVFoundation
+import ColorizeSwift
 
 class AudioDevice {
     var audioDeviceID:AudioDeviceID
@@ -110,7 +111,7 @@ class AudioDeviceFinder {
             if (audioDevice.hasOutput) {
                 if let name = audioDevice.name,
                     let uid = audioDevice.uid {
-                    print("Found device \"\(name)\", uid=\(uid)")
+                    print("Found device \"\(name.green())\", uid=\(uid.blue())")
                     audioDevices.append(audioDevice)
                 }
             }

@@ -1,5 +1,6 @@
 import Foundation
 import AVFoundation
+import ColorizeSwift
 
 class AudioPlayer {
     var filePath: String
@@ -16,7 +17,7 @@ class AudioPlayer {
     }
 
     func play() {
-        print("Playing \(self.filePath)...")
+        print("Playing \(self.filePath.green())...")
         self.player.play()
     }
 }
