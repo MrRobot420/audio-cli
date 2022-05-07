@@ -17,11 +17,10 @@ struct Play: ParsableCommand {
     @Argument(help: "The audio file path.")
     private var filePath: String
 
-    @Argument(help: "The audio output device UID.")
-    private var deviceUID: String?
-
     func run() throws {
-        print("Creating outputs on device \"\(deviceUID ?? "no device")\" for file \"\(filePath)\"")
+        print("Playing audio for file \"\(filePath)\"")
+        let audioPlayer = AudioPlayer(filePath: filePath)
+        audioPlayer.play()
     }
 }
 
