@@ -23,7 +23,13 @@ struct Play: ParsableCommand {
         let player = AudioPlayer(filePath: filePath)
         player.setupPlayer()
         player.play()
+        // AudioCLI.main() // ❌ uncomment this bad boy if you want a buzzing sound! WARNING! ❌
+
         // AlternateAudioPlayer.open_audiofile(filePath: filePath)
+
+        // let nextPlayer = NextAudioPlayer(filePath: filePath)
+        // nextPlayer.setupQueue()
+        // nextPlayer.play()
     }
 }
 
