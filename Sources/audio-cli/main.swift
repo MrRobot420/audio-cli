@@ -20,8 +20,10 @@ struct Play: ParsableCommand {
 
     func run() throws {
         print("Playing audio for file \"\(filePath.green())\"")
-        let audioPlayer = AudioPlayer(filePath: filePath)
-        audioPlayer.play()
+        let player = AudioPlayer(filePath: filePath)
+        player.setupPlayer()
+        player.play()
+        // AlternateAudioPlayer.open_audiofile(filePath: filePath)
     }
 }
 
