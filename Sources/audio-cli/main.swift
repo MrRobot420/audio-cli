@@ -21,7 +21,7 @@ struct Play: ParsableCommand {
     private var deviceUID: String?
 
     func run() throws {
-        print("Creating outputs @ \(deviceUID ?? "no device") for file \"\(filePath)\"")
+        print("Creating outputs on device \"\(deviceUID ?? "no device")\" for file \"\(filePath)\"")
     }
 }
 
