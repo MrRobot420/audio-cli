@@ -12,7 +12,7 @@ struct AudioCLI: ParsableCommand {
 }
 
 struct Play: ParsableCommand {
-    public static let configuration = CommandConfiguration(abstract: "Play multiple audio outputs from the given audio file-path.")
+    public static let configuration = CommandConfiguration(abstract: "Play given audio file on given audio device.")
 
     @Argument(help: "The audio file path.")
     private var filePath: String
