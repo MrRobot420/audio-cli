@@ -17,8 +17,11 @@ struct Play: ParsableCommand {
     @Argument(help: "The audio file path.")
     private var filePath: String
 
+    @Argument(help: "The audio output device UID.")
+    private var deviceUID: String?
+
     func run() throws {
-        print("Creating outputs for file \"\(filePath)\"")
+        print("Creating outputs @ \(deviceUID ?? "no device") for file \"\(filePath)\"")
     }
 }
 
@@ -28,10 +31,7 @@ struct Discover: ParsableCommand {
     func run() throws {
         print("Discovering audio devices...")
         let devices = AudioDeviceFinder.findDevices()
-        print("Found \(devices.count) audio devices:")
-        for device in devices {
-            print("\t\(device.name ?? "Unknown") (\(device.uid ?? "Unknown"))")
-        }
+        print("\n✅ Found \(devices.count) audio devices.")
     }
 }
 
