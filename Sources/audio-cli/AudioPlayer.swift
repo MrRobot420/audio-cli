@@ -7,6 +7,7 @@ class AudioPlayer {
     var audioFile: AVAudioFile?
     var audioEngine: AVAudioEngine = AVAudioEngine()
     var playerNode: AVAudioPlayerNode = AVAudioPlayerNode()
+    
 
     init(filePath: String) {
         self.filePath = filePath
@@ -15,6 +16,18 @@ class AudioPlayer {
         do {
             self.audioFile = try? AVAudioFile(forReading: fileURL)
         }
+        let output = audioEngine.outputNode
+
+        // get the low level input audio unit from the engine:
+        let outputUnit = output.audioUnit!
+        // use core audio low level call to set the input device:
+        var outputDeviceID: AudioDeviceID = AudioDeviceFinder.findDevices()[3].audioDeviceID
+        AudioUnitSetProperty(outputUnit,
+                             kAudioOutputUnitProperty_CurrentDevice,
+                             kAudioUnitScope_Global,
+                             0,
+                             &outputDeviceID,
+                             UInt32(MemoryLayout<AudioDeviceID>.size))
     }
     
     func setupPlayer() {
