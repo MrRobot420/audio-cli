@@ -9,7 +9,6 @@ class AudioPlayer {
     var audioEngine: AVAudioEngine = AVAudioEngine()
     var playerNode: AVAudioPlayerNode = AVAudioPlayerNode()
     var deviceID: AudioDeviceID
-    
 
     init(filePath: String, deviceName: String) {
         self.fileName = filePath
@@ -51,7 +50,6 @@ class AudioPlayer {
             self.audioEngine.prepare()
             try self.audioEngine.start()
             self.playerNode.play()
-            
             
         } catch {
             print("Error while playing: \(error)")
