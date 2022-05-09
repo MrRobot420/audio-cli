@@ -11,7 +11,7 @@ A command line tool for:
 
 ## Usage (during development)
 
-#### Help / Show options:
+### Help / Show options:
 ```bash
 swift run audio-cli -h
 ```
@@ -36,7 +36,7 @@ SUBCOMMANDS:
 
 ---
 
-#### Discover audio devices:
+### Discover audio devices:
 ```bash
 swift run audio-cli discover
 ```
@@ -54,7 +54,7 @@ swift run audio-cli discover
 ```
 ---
 
-#### Playing audio files:
+### Playing audio files:
 ```bash
 swift run audio-cli play -d <device-uid> <filename>
 ```
