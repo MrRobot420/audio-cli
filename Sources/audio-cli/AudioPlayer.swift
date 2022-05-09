@@ -45,7 +45,7 @@ class AudioPlayer {
     }
 
     func play() {
-        print("\n▶️ Playing \(self.fileName.green())... | from: ", "\(self.fileURL)".red())
+        print("\n▶️ Playing \(self.fileName.green())... | from:", "\(self.fileURL)".red())
         
         do {
             self.audioEngine.prepare()
