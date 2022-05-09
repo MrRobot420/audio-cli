@@ -36,29 +36,39 @@ swift run audio-cli discover
 ```
 ##### Output:
 ```
-Discovering audio devices...
+🔎 Discovering audio devices...
 
-Found device "BN650Y", uid=AppleGFXHDAEngineOutputDP:30001:0:{6D1E-5BA5-0003A487}
-Found device "BN650Y", uid=AppleGFXHDAEngineOutputDP:30001:1:{6D1E-5BA5-0003A486}
-Found device "BlackHole 2ch", uid=BlackHole2ch_UID
-Found device "MacBook Pro-Lautsprecher", uid=BuiltInSpeakerDevice
-Found device "Multiausgangsgerät", uid=~:AMS2_StackedOutput:0
+[0] - Found device "BN650Y", uid=AppleGFXHDAEngineOutputDP:30001:0:{6D1E-5BA5-0003A487}
+[1] - Found device "BN650Y", uid=AppleGFXHDAEngineOutputDP:30001:1:{6D1E-5BA5-0003A486}
+[2] - Found device "BlackHole 2ch", uid=BlackHole2ch_UID
+[4] - Found device "MacBook Pro-Lautsprecher", uid=BuiltInSpeakerDevice
+[5] - Found device "Multiausgangsgerät", uid=~:AMS2_StackedOutput:0
 
 ✅ Found 5 audio devices.
 ```
 
 #### Playing audio files:
 ```bash
-swift run audio-cli play <filename>
+swift run audio-cli play -d <device-uid> <filename>
 ```
+--> The device uid is found in *blue* in the output of the `discover` command.
 --> The filename does *not* have to be the absolute path.
 
 ##### Output:
 ```
 [0/0] Build complete!
-Playing audio for file "audio/someone.mp3"
-File URL: audio/someone.mp3 -- file:///Users/max/code/swift/audio-cli/
-Playing audio/someone.mp3...
+
+🔎 Discovering audio devices...
+
+[0] - Found device "BN650Y", uid=AppleGFXHDAEngineOutputDP:30001:0:{6D1E-5BA5-0003A487}
+[1] - Found device "BN650Y", uid=AppleGFXHDAEngineOutputDP:30001:1:{6D1E-5BA5-0003A486}
+[2] - Found device "BlackHole 2ch", uid=BlackHole2ch_UID
+[4] - Found device "MacBook Pro-Lautsprecher", uid=BuiltInSpeakerDevice
+[5] - Found device "Multiausgangsgerät", uid=~:AMS2_StackedOutput:0
+
+✅ Attaching to device: BN650Y | uid: AppleGFXHDAEngineOutputDP:30001:1:{6D1E-5BA5-0003A486} id: 46
+
+▶️ Playing audio/someone.mp3... | from: audio/someone.mp3 -- file:///Users/max/code/swift/audio-cli/
 ```
 
 ---
