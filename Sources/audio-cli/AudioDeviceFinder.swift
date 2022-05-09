@@ -77,20 +77,21 @@ class AudioDevice {
 }
 
 class AudioDeviceFinder {
-    static func findDevices() -> [AudioDevice] {
-        var propsize:UInt32 = 0
-        var audioDevices: [AudioDevice] = []
-
-        var address:AudioObjectPropertyAddress = AudioObjectPropertyAddress(
+    static func getDeviceInfo() -> (numDevices: Int, devids: [AudioDeviceID]) {
+        var propsize: UInt32 = 0
+        var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
             mSelector:AudioObjectPropertySelector(kAudioHardwarePropertyDevices),
             mScope:AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
             mElement:AudioObjectPropertyElement(kAudioObjectPropertyElementMain))
-
-        var result:OSStatus = AudioObjectGetPropertyDataSize(AudioObjectID(kAudioObjectSystemObject), &address, UInt32(MemoryLayout<AudioObjectPropertyAddress>.size), nil, &propsize)
+        var result: OSStatus = AudioObjectGetPropertyDataSize(AudioObjectID(kAudioObjectSystemObject), 
+                                                                &address, 
+                                                                UInt32(MemoryLayout<AudioObjectPropertyAddress>.size), 
+                                                                nil, 
+                                                                &propsize)
 
         if (result != 0) {
             print("Error \(result) from AudioObjectGetPropertyDataSize")
-            return []
+            return (numDevices: 0, devids: [])
         }
 
         let numDevices = Int(propsize / UInt32(MemoryLayout<AudioDeviceID>.size))
@@ -103,19 +104,40 @@ class AudioDeviceFinder {
         result = AudioObjectGetPropertyData(AudioObjectID(kAudioObjectSystemObject), &address, 0, nil, &propsize, &devids);
         if (result != 0) {
             print("Error \(result) from AudioObjectGetPropertyData")
-            return []
+            return (numDevices: 0, devids: [])
         }
+
+        return (numDevices: numDevices, devids: devids) as (numDevices: Int, devids: [AudioDeviceID])
+    }
+
+    static func findDevices() -> [AudioDevice]{
+        print("\n🔎 Discovering audio devices...\n")
+        let (numDevices, devids) = getDeviceInfo()
+        var audioDevices: [AudioDevice] = []
 
         for i in 0..<numDevices {
             let audioDevice = AudioDevice(deviceID:devids[i])
             if (audioDevice.hasOutput) {
                 if let name = audioDevice.name,
                     let uid = audioDevice.uid {
-                    print("Found device \"\(name.green())\", uid=\(uid.blue())")
+                    print("[\(i)] - Found device \"\(name.green())\", uid=\(uid.blue())")
                     audioDevices.append(audioDevice)
                 }
             }
         }
+        
         return audioDevices
+    }
+
+    static func getDeviceID(device: String) -> AudioDeviceID {
+        let audioDevices = findDevices()
+
+        for audioDevice in audioDevices {
+            if audioDevice.uid == device {
+                print("\n✅ Attaching to device: \(audioDevice.name!.green()) | uid: \(device.blue()) id: \(String(audioDevice.audioDeviceID).red())")
+                return audioDevice.audioDeviceID
+            }
+        }
+        return AudioDeviceID() // Might go wrong?
     }
 }
