@@ -114,13 +114,14 @@ class AudioDeviceFinder {
         print("\n🔎 Discovering audio devices...\n")
         let (numDevices, devids) = getDeviceInfo()
         var audioDevices: [AudioDevice] = []
+        var counter = 0
 
         for i in 0..<numDevices {
             let audioDevice = AudioDevice(deviceID:devids[i])
             if (audioDevice.hasOutput) {
-                if let name = audioDevice.name,
-                    let uid = audioDevice.uid {
-                    print("[\(i)] - Found device \"\(name.green())\", uid=\(uid.blue())")
+                if let name = audioDevice.name, let uid = audioDevice.uid {
+                    print("[\(counter)] - Found device \"\(name.green())\", uid=\(uid.blue())")
+                    counter += 1
                     audioDevices.append(audioDevice)
                 }
             }
