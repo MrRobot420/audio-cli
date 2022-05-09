@@ -106,6 +106,7 @@ class AudioDeviceFinder {
             return []
         }
 
+        print("\n🔎 Discovering audio devices...\n")
         for i in 0..<numDevices {
             let audioDevice = AudioDevice(deviceID:devids[i])
             if (audioDevice.hasOutput) {
@@ -123,9 +124,8 @@ class AudioDeviceFinder {
         let audioDevices = findDevices()
 
         for audioDevice in audioDevices {
-            print("audioDevice: \(audioDevice.name!)")
             if audioDevice.uid == device {
-                print("Found device: \(audioDevice.name!) | id: \(audioDevice.audioDeviceID)")
+                print("\n✅ Attaching to device: \(audioDevice.name!.green()) | uid: \(device.blue()) id: \(String(audioDevice.audioDeviceID).red())")
                 return audioDevice.audioDeviceID
             }
         }

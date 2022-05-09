@@ -3,7 +3,8 @@ import AVFoundation
 import ColorizeSwift
 
 class AudioPlayer {
-    var filePath: String
+    var fileName: String
+    var fileURL: URL
     var audioFile: AVAudioFile?
     var audioEngine: AVAudioEngine = AVAudioEngine()
     var playerNode: AVAudioPlayerNode = AVAudioPlayerNode()
@@ -11,18 +12,20 @@ class AudioPlayer {
     
 
     init(filePath: String, deviceName: String) {
-        self.filePath = filePath
+        self.fileName = filePath
+        self.fileURL = URL(fileURLWithPath: filePath)
         self.deviceID = AudioDeviceFinder.getDeviceID(device: deviceName)
-        let fileURL = URL(fileURLWithPath: filePath)
-        print("File URL: \(fileURL)")
+        
         do {
-            self.audioFile = try? AVAudioFile(forReading: fileURL)
+            self.audioFile = try? AVAudioFile(forReading: self.fileURL)
         }
-        let output = audioEngine.outputNode
-        // get the low level input audio unit from the engine:
-        let outputUnit = output.audioUnit!
-        // use core audio low level call to set the input device:
-        var outputDeviceID: AudioDeviceID = self.deviceID
+    }
+
+    func attachToDevice() {
+        let output = self.audioEngine.outputNode
+        let outputUnit = output.audioUnit! // get the low level input audio unit from the engine
+        var outputDeviceID: AudioDeviceID = self.deviceID // use core audio low level call to set the input device:
+        
         AudioUnitSetProperty(outputUnit,
                              kAudioOutputUnitProperty_CurrentDevice,
                              kAudioUnitScope_Global,
@@ -32,6 +35,7 @@ class AudioPlayer {
     }
     
     func setupPlayer() {
+        self.attachToDevice() // set audio-output to the initialised deviceID
         self.audioEngine.attach(self.playerNode)
         self.audioEngine.connect(self.playerNode, to: self.audioEngine.outputNode, format: self.audioFile!.processingFormat)
         self.playerNode.scheduleFile(self.audioFile!, at: nil, completionCallbackType: .dataPlayedBack, completionHandler: {(completionType) in
@@ -41,8 +45,7 @@ class AudioPlayer {
     }
 
     func play() {
-        print("Playing \(self.filePath.green())...")
-        // print(self.audioEngine.attachedNodes)
+        print("\n▶️ Playing \(self.fileName.green())... | from: ", "\(self.fileURL)".red())
         
         do {
             self.audioEngine.prepare()
