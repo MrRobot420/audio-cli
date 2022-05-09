@@ -7,6 +7,8 @@ A command line tool for:
 - discovering audio devices
 - playing audio files by file-path
 
+---
+
 ## Usage (during development)
 
 #### Help / Show options:
@@ -32,6 +34,8 @@ SUBCOMMANDS:
   See 'audio-cli help <subcommand>' for detailed help.
 ```
 
+---
+
 #### Discover audio devices:
 ```bash
 swift run audio-cli discover
@@ -48,13 +52,15 @@ swift run audio-cli discover
 
 ✅ Found 5 audio devices.
 ```
+---
 
 #### Playing audio files:
 ```bash
 swift run audio-cli play -d <device-uid> <filename>
 ```
---> The device uid is found in *blue* in the output of the `discover` command.
---> The filename does *not* have to be the absolute path.
+
+- The device uid is found in *blue* in the output of the `discover` command.
+- The filename does *not* have to be the absolute path.
 
 ##### Output:
 ```
