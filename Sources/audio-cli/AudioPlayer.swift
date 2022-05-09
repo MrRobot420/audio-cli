@@ -16,11 +16,14 @@ class AudioPlayer {
             self.audioFile = try? AVAudioFile(forReading: fileURL)
         }
     }
-
+    
     func setupPlayer() {
         self.audioEngine.attach(self.playerNode)
         self.audioEngine.connect(self.playerNode, to: self.audioEngine.outputNode, format: self.audioFile!.processingFormat)
-        self.playerNode.scheduleFile(self.audioFile!, at: nil, completionCallbackType: .dataPlayedBack)
+        self.playerNode.scheduleFile(self.audioFile!, at: nil, completionCallbackType: .dataPlayedBack, completionHandler: {(completionType) in
+            print("done")
+            exit(-1)
+        })
     }
 
     func play() {
@@ -31,6 +34,8 @@ class AudioPlayer {
             self.audioEngine.prepare()
             try self.audioEngine.start()
             self.playerNode.play()
+            
+            
         } catch {
             print("Error while playing: \(error)")
             self.playerNode.stop()
