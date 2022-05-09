@@ -1,3 +1,4 @@
+<img src="https://developer.apple.com/swift/images/swift-og.png" width="100">
 # Swift audio-cli
 
 ## What is it?
