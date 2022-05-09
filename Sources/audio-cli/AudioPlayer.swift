@@ -19,7 +19,6 @@ class AudioPlayer {
             self.audioFile = try? AVAudioFile(forReading: fileURL)
         }
         let output = audioEngine.outputNode
-
         // get the low level input audio unit from the engine:
         let outputUnit = output.audioUnit!
         // use core audio low level call to set the input device:

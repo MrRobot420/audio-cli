@@ -111,7 +111,7 @@ class AudioDeviceFinder {
             if (audioDevice.hasOutput) {
                 if let name = audioDevice.name,
                     let uid = audioDevice.uid {
-                    print("Found device \"\(name.green())\", uid=\(uid.blue())")
+                    print("[\(i)] - Found device \"\(name.green())\", uid=\(uid.blue())")
                     audioDevices.append(audioDevice)
                 }
             }
@@ -121,10 +121,10 @@ class AudioDeviceFinder {
 
     static func getDeviceID(device: String) -> AudioDeviceID {
         let audioDevices = findDevices()
-        
+
         for audioDevice in audioDevices {
             print("audioDevice: \(audioDevice.name!)")
-            if audioDevice.name == device {
+            if audioDevice.uid == device {
                 print("Found device: \(audioDevice.name!) | id: \(audioDevice.audioDeviceID)")
                 return audioDevice.audioDeviceID
             }
