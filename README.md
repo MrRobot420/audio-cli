@@ -11,7 +11,7 @@ A command line tool for:
 
 ## Usage (during development)
 
-### Help / Show options:
+### 🤷🏻‍♂️ Help / Show options:
 ```bash
 swift run audio-cli -h
 ```
@@ -36,7 +36,7 @@ SUBCOMMANDS:
 
 ---
 
-### Discover audio devices:
+### 🔎 Discover audio devices:
 ```bash
 swift run audio-cli discover
 ```
@@ -54,7 +54,7 @@ swift run audio-cli discover
 ```
 ---
 
-### Playing audio files:
+### ▶️ Playing audio files:
 ```bash
 swift run audio-cli play -d <device-uid> <filename>
 ```
@@ -81,7 +81,7 @@ swift run audio-cli play -d <device-uid> <filename>
 
 ---
 
-## Release Library (for production)
+## 🚀 Release Library (for production)
 ### Release the library
 
 ```bash
@@ -95,19 +95,19 @@ cp -f .build/release/audio-cli /usr/local/bin/audio-cli
 
 ---
 
-## Usage after installation
+## 👨🏻‍💻 Usage after installation
 
-#### Help / Show options:
+#### 🤷🏻‍♂️  Help / Show options:
 ```bash
 audio-cli -h
 ```
 
-#### Discover audio devices:
+#### 🔎 Discover audio devices:
 ```bash
 audio-cli discover
 ```
 
-#### Play audio file:
+#### ▶️ Play audio file:
 ```bash
-audio-cli play <filename>
+audio-cli play -d <uid> <filename>
 ```
