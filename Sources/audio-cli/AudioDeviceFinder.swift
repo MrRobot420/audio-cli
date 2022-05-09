@@ -118,4 +118,17 @@ class AudioDeviceFinder {
         }
         return audioDevices
     }
+
+    static func getDeviceID(device: String) -> AudioDeviceID {
+        let audioDevices = findDevices()
+        
+        for audioDevice in audioDevices {
+            print("audioDevice: \(audioDevice.name!)")
+            if audioDevice.name == device {
+                print("Found device: \(audioDevice.name!) | id: \(audioDevice.audioDeviceID)")
+                return audioDevice.audioDeviceID
+            }
+        }
+        return AudioDeviceID() // Might go wrong?
+    }
 }

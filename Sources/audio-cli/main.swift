@@ -15,12 +15,15 @@ struct AudioCLI: ParsableCommand {
 struct Play: ParsableCommand {
     public static let configuration = CommandConfiguration(abstract: "Play given audio file on given audio device.".blue())
 
+    @Option(name: .short, help: "The output device.")
+    private var device: String
+
     @Argument(help: "The audio file path.")
     private var filePath: String
 
     func run() throws {
         print("Playing audio for file \"\(filePath.green())\"")
-        let player = AudioPlayer(filePath: filePath)
+        let player = AudioPlayer(filePath: filePath, deviceName: device)
         player.setupPlayer()
         player.play()
         
